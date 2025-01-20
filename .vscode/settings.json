@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true, // 저장 시 자동 포맷팅
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit", // 저장 시 모든 ESLint 규칙 수정
+    "source.fixAll.eslint": "explicit" // 저장 시 ESLint 규칙에 따라 수정
+  },
+  "eslint.alwaysShowStatus": true, // ESLint 상태 표시 활성화
+  "editor.defaultFormatter": "esbenp.prettier-vscode" // Prettier를 기본 포맷터로 설정
+}

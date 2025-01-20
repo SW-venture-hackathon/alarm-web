@@ -1,7 +1,6 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function QuestionsPage() {
+const QuestionsPage = () => {
   const navigate = useNavigate();
 
   const handleStart = () => {
@@ -14,4 +13,6 @@ export default function QuestionsPage() {
       <button onClick={handleStart}>질문 시작하기</button>
     </div>
   );
-}
+};
+
+export default QuestionsPage;

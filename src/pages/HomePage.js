@@ -1,81 +1,110 @@
-import React from 'react';
+import { gapi } from 'gapi-script';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
-// const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
-// const API_KEY = 'YOUR_GOOGLE_API_KEY';
-// const SCOPES = 'https://www.googleapis.com/auth/calendar';
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const API_KEY = process.env.REACT_APP_API_KEY;
+const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
-export default function HomePage() {
-  //   useEffect(() => {
-  //     function start() {
-  //       gapi.client.init({
-  //         apiKey: API_KEY,
-  //         clientId: CLIENT_ID,
-  //         discoveryDocs: [
-  //           'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
-  //         ],
-  //         scope: SCOPES,
-  //       });
-  //     }
-  //     gapi.load('client:auth2', start);
-  //   }, []);
+const HomePage = () => {
+  useEffect(() => {
+    const start = () => {
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: [
+          'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
+        ],
+        scope: SCOPES,
+      });
+    };
+    gapi.load('client:auth2', start);
+  }, []);
 
-  //   const handleAuthClick = async () => {
-  //     const GoogleAuth = gapi.auth2.getAuthInstance();
-  //     if (!GoogleAuth.isSignedIn.get()) {
-  //       await GoogleAuth.signIn();
-  //     }
-  //     const user = GoogleAuth.currentUser.get();
-  //     console.log('User:', user);
-  //     alert('Google Calendar 연동에 성공했습니다!');
-  //   };
+  console.log('Client ID:', CLIENT_ID);
+  console.log('API Key:', API_KEY);
+
+  const handleSignIn = async () => {
+    const GoogleAuth = gapi.auth2.getAuthInstance();
+    if (!GoogleAuth.isSignedIn.get()) {
+      await GoogleAuth.signIn();
+    }
+    alert('Google Calendar 연동 성공!');
+  };
+
+  const handleFetchEvents = async () => {
+    try {
+      const response = await gapi.client.calendar.events.list({
+        calendarId: 'primary', // 기본 캘린더
+        timeMin: new Date().toISOString(), // 현재 시간 이후의 이벤트
+        showDeleted: false,
+        singleEvents: true,
+        maxResults: 10,
+        orderBy: 'startTime',
+      });
+
+      const events = response.result.items;
+      console.log('Events:', events);
+      alert(`가져온 이벤트 수: ${events.length}`);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      alert('이벤트를 가져오는 중 오류가 발생했습니다.');
+    }
+  };
 
   return (
     <Container>
-      <CalendarBox>
-        캘린더를 연결해주세요
-        {/* <AddButton onClick={handleAuthClick}>+</AddButton> */}
-      </CalendarBox>
+      <h1>Google Calendar 연동</h1>
+      <Button onClick={handleSignIn}>Google 로그인</Button>
+      <Button onClick={handleFetchEvents}>이벤트 가져오기</Button>
+      <EventsContainer>
+        <h2>이벤트 목록</h2>
+        {/* 가져온 이벤트를 여기에 렌더링할 수 있습니다 */}
+        {/* 아래는 예시 */}
+        <EventItem>이벤트 제목: 내 생일</EventItem>
+        <EventItem>이벤트 제목: 팀 회의</EventItem>
+      </EventsContainer>
     </Container>
   );
-}
+};
+
+export default HomePage;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 16px;
-  background-color: #f7f7f7;
-  min-height: 100vh;
 `;
 
-const CalendarBox = styled.div`
-  width: 90%;
-  height: 200px;
-  margin: 16px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #e8e8e8;
-  color: #666;
-  font-size: 18px;
+const Button = styled.button`
+  margin: 8px 0;
+  padding: 12px 20px;
+  background-color: #4285f4;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: #357ae8;
+  }
+`;
+
+const EventsContainer = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+  background-color: #f7f7f7;
+  padding: 16px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
 `;
-/*
-const AddButton = styled.div`
-  position: absolute;
-  bottom: 16px;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  color: #666;
-  border: 2px solid #666;
-  border-radius: 50%;
-  cursor: pointer;
+
+const EventItem = styled.div`
+  margin-bottom: 12px;
+  padding: 8px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 `;
-*/

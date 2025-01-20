@@ -1,5 +1,5 @@
-import React from 'react';
-
-export default function AlarmsPage() {
+const AlarmsPage = () => {
   return <div>알람 페이지</div>;
-}
+};
+
+export default AlarmsPage;

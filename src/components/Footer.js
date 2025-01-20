@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const FooterContainer = styled.footer`
@@ -9,8 +8,8 @@ const FooterContainer = styled.footer`
   font-size: 14px;
 `;
 
-function Footer() {
+const Footer = () => {
   return <FooterContainer>© 2025 CALAL</FooterContainer>;
-}
+};
 
 export default Footer;

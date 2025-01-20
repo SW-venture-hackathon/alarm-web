@@ -6,6 +6,7 @@ const QuestionDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState(null);
+  const [wakeUpTime, setWakeUpTime] = useState(9 * 60); // 초기 값: 오전 9시 (분 단위)
 
   const questions = [
     {
@@ -29,9 +30,25 @@ const QuestionDetailPage = () => {
       text: '나의 알람 반복 주기는?',
       options: ['5분 마다', '10분 마다', '15분 마다', '20분 마다', '30분 이상'],
     },
+    {
+      id: 4,
+      text: '약속 시간이 오전 10시이고, 이동 시간이 15분이라면 몇 시에 일어날 건가요?',
+      options: null,
+    },
+    {
+      id: 5,
+      text: '약속 시간이 오전 10시이고, 이동 시간이 15분이라면 몇 시에 나갈 건가요?',
+      options: null,
+    },
   ];
 
   const question = questions.find((q) => q.id === parseInt(id));
+
+  const formatTime = (timeInMinutes) => {
+    const hours = Math.floor(timeInMinutes / 60);
+    const minutes = timeInMinutes % 60;
+    return `${hours}:${minutes.toString().padStart(2, '0')}`;
+  };
 
   const handleNext = () => {
     const nextId = parseInt(id) + 1;
@@ -39,7 +56,7 @@ const QuestionDetailPage = () => {
       navigate(`/questions/${nextId}`);
     } else {
       alert('모든 질문을 완료했습니다!');
-      navigate('/'); // HomePage로 이동
+      navigate('/'); // 홈 페이지로 이동
     }
   };
 
@@ -49,34 +66,45 @@ const QuestionDetailPage = () => {
 
   return (
     <div className="question-container">
-      {/* 질문 텍스트 */}
       <div className="question-text">{question.text}</div>
 
-      {/* 옵션 선택 영역 */}
-      <div className="options-container">
-        {question.options.map((option, index) => (
-          <div
-            className="option"
-            key={index}
-            onClick={() => setSelectedOption(option)}
-          >
-            <input
-              type="radio"
-              id={`option-${index}`}
-              name="question-option"
-              value={option}
-              checked={selectedOption === option}
-              onChange={() => setSelectedOption(option)}
-            />
-            <label htmlFor={`option-${index}`}>{option}</label>
+      {id === '4' || id === '5' ? (
+        <div className="slider-container">
+          <input
+            className="time-slider"
+            type="range"
+            min={id === '4' ? 6 * 60 : 9 * 60}
+            max={id === '4' ? 10 * 60 : 11 * 60}
+            step={5}
+            value={wakeUpTime}
+            onChange={(e) => setWakeUpTime(parseInt(e.target.value))}
+          />
+          <div className="time-label">
+            선택한 시간: {formatTime(wakeUpTime)}
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="options-container">
+          {question.options &&
+            question.options.map((option, index) => (
+              <div
+                key={index}
+                className={`option ${
+                  selectedOption === option ? 'selected' : ''
+                }`}
+                onClick={() => setSelectedOption(option)}
+              >
+                {option}
+              </div>
+            ))}
+        </div>
+      )}
 
-      {/* 다음 버튼 */}
-      <button className="next-button" onClick={handleNext}>
-        다음 질문
-      </button>
+      <div className="footer-container">
+        <button className="next-button" onClick={handleNext}>
+          다음 질문
+        </button>
+      </div>
     </div>
   );
 };

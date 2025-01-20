@@ -1,51 +1,54 @@
-import { gapi } from 'gapi-script';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const HomePage = () => {
+  const [events, setEvents] = useState([]);
+  const [error, setError] = useState(null);
+
+  const handleFetchEvents = async () => {
+    const calendarId =
+      'e0fe6e867084ce29a8d5e4a9f76ce6c6207b6ff0b6d7cbd69f6bd937174dbbc6@group.calendar.google.com'; // 공개 캘린더 ID
+    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?key=${apiKey}`,
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setEvents(data.items || []);
+      console.log('Fetched Events:', data.items);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      setError('이벤트를 가져오는 중 오류가 발생했습니다.');
+    }
+  };
+
   console.log('Client ID:', process.env.REACT_APP_GOOGLE_CLIENT_ID);
   console.log('API Key:', process.env.REACT_APP_GOOGLE_API_KEY);
 
-  const handleSignIn = async () => {
-    const GoogleAuth = gapi.auth2?.getAuthInstance();
-    console.log('asdfawfes', GoogleAuth);
-    if (!GoogleAuth.isSignedIn.get()) {
-      console.log('asdf');
-      await GoogleAuth.signIn();
-    }
-    alert('Google Calendar 연동 성공!');
-  };
-
-  const handleFetchEvents = async () => {
-    try {
-      const response = await gapi.client.calendar.events.list({
-        calendarId: 'primary', // 기본 캘린더
-        timeMin: new Date().toISOString(), // 현재 시간 이후의 이벤트
-        showDeleted: false,
-        singleEvents: true,
-        maxResults: 10,
-        orderBy: 'startTime',
-      });
-
-      const events = response.result.items;
-      console.log('Events:', events);
-      alert(`가져온 이벤트 수: ${events.length}`);
-    } catch (error) {
-      console.error('Error fetching events:', error);
-      alert('이벤트를 가져오는 중 오류가 발생했습니다.');
-    }
-  };
-
   return (
     <Container>
-      <h1>Google Calendar 연동</h1>
-      <Button onClick={handleSignIn}>Google 로그인</Button>
+      <h1>Google Calendar 공개 캘린더 연동</h1>
       <Button onClick={handleFetchEvents}>이벤트 가져오기</Button>
       <EventsContainer>
         <h2>이벤트 목록</h2>
-        {/* 가져온 이벤트를 여기에 렌더링할 수 있습니다 */}
-        {/* 아래는 예시 */}
-        <EventItem>이벤트 제목: 내 생일</EventItem>
-        <EventItem>이벤트 제목: 팀 회의</EventItem>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {events.length > 0 ? (
+          events.map((event, index) => (
+            <EventItem key={index}>
+              <strong>{event.summary || '제목 없음'}</strong>
+              <p>시작 시간: {event.start?.dateTime || event.start?.date}</p>
+              <p>종료 시간: {event.end?.dateTime || event.end?.date}</p>
+            </EventItem>
+          ))
+        ) : (
+          <p>이벤트가 없습니다.</p>
+        )}
       </EventsContainer>
     </Container>
   );
@@ -90,4 +93,9 @@ const EventItem = styled.div`
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 4px;
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  font-weight: bold;
 `;

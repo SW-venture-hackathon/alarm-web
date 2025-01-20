@@ -8,7 +8,7 @@ import QuestionDetailPage from './pages/QuestionDetailPage';
 import QuestionsPage from './pages/QuestionsPage';
 import TodosPage from './pages/TodosPage';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
@@ -27,6 +27,6 @@ function App() {
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;

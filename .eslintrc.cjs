@@ -30,8 +30,8 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
-
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': 'off', // console.log 허용
+    //'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     // 추가적인 규칙을 설정할 수 있음
     'prettier/prettier': ['error'], // Prettier 규칙을 ESLint에서 에러로 표시

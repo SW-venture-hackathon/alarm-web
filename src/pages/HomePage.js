@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import CalendarView from '../features/home/CalendarView';
 import CreatedAlarms from '../features/home/CreatedAlarms';
+import UpcomingEvents from '../features/home/UpcomingEvents';
 
 const HomePage = () => {
   const [events, setEvents] = useState([
@@ -34,13 +35,7 @@ const HomePage = () => {
     <Container>
       <CalendarView events={events} />
       <UpcomingContainer>
-        <Title>다가오는 일정</Title>
-        {events.map((event, index) => (
-          <EventCard key={index}>
-            <EventDate>{event.date} 알람 일정</EventDate>
-            <EventTitle>{event.title}</EventTitle>
-          </EventCard>
-        ))}
+        <UpcomingEvents events={events} />
       </UpcomingContainer>
       <CreatedAlarms alarms={alarms} />
       <button onClick={handleEvent}></button>
@@ -63,31 +58,4 @@ const UpcomingContainer = styled.div`
   border-radius: 8px;
   background-color: #f9f9f9;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const Title = styled.h2`
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 12px;
-`;
-
-const EventCard = styled.div`
-  background-color: #ffe6e6;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 12px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const EventDate = styled.div`
-  font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 4px;
-`;
-
-const EventTitle = styled.div`
-  font-size: 1rem;
-  font-weight: bold;
-  color: #333;
 `;

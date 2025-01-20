@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
@@ -10,8 +9,8 @@ const HeaderContainer = styled.header`
   font-weight: bold;
 `;
 
-function Header() {
+const Header = () => {
   return <HeaderContainer>CALAL</HeaderContainer>;
-}
+};
 
 export default Header;

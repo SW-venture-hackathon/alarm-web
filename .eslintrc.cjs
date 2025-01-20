@@ -7,6 +7,7 @@ module.exports = {
   extends: [
     'eslint:recommended', // 기본 ESLint 권장 규칙 사용
     'plugin:react/recommended', // React 관련 ESLint 규칙 사용
+    'plugin:react-hooks/recommended',
     'plugin:prettier/recommended', // Prettier와 ESLint 통합, 포매팅 규칙 적용
   ],
   parserOptions: {
@@ -18,6 +19,9 @@ module.exports = {
   },
   plugins: [
     'react', // React 관련 ESLint 플러그인
+    'react-hooks',
+    'prettier',
+    'unused-imports',
   ],
   rules: {
     'react/react-in-jsx-scope': 'off', // React 17 이상에서는 불필요한 규칙
@@ -35,10 +39,18 @@ module.exports = {
 
     // 추가적인 규칙을 설정할 수 있음
     'prettier/prettier': ['error'], // Prettier 규칙을 ESLint에서 에러로 표시
-    quotes: ['error', 'single'], // 따옴표 규칙을 작은 따옴표로 강제
-    semi: ['error', 'always'], // 세미콜론 규칙 강제
+    'comma-dangle': ['error', 'only-multiline'], // 여러 줄에서만 쉼표 허용
 
-    //'pnp/no-unresolved': 'error',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^React$', // React는 사용하지 않아도 허용 (React 17+)
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
   },
   settings: {
     react: {

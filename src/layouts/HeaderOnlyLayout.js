@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../components/Header';
@@ -7,7 +6,7 @@ const Content = styled.main`
   padding: 16px;
 `;
 
-function HeaderOnlyLayout() {
+const HeaderOnlyLayout = () => {
   return (
     <>
       <Header />
@@ -16,6 +15,6 @@ function HeaderOnlyLayout() {
       </Content>
     </>
   );
-}
+};
 
 export default HeaderOnlyLayout;

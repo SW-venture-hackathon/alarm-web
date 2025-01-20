@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import Footer from '../components/Footer';
@@ -15,7 +14,7 @@ const Content = styled.main`
   padding: 16px;
 `;
 
-function MainLayout() {
+const MainLayout = () => {
   return (
     <MainLayoutContainer>
       <Header />
@@ -25,6 +24,6 @@ function MainLayout() {
       <Footer />
     </MainLayoutContainer>
   );
-}
+};
 
 export default MainLayout;

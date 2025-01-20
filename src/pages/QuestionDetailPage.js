@@ -1,7 +1,6 @@
-import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default function QuestionDetailPage() {
+const QuestionDetailPage = () => {
   const { id } = useParams(); // 현재 질문 ID 가져오기
   const navigate = useNavigate();
 
@@ -53,4 +52,6 @@ export default function QuestionDetailPage() {
       <button onClick={handleNext}>다음 질문</button>
     </div>
   );
-}
+};
+
+export default QuestionDetailPage;

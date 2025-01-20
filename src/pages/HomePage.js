@@ -1,32 +1,15 @@
 import { gapi } from 'gapi-script';
-import { useEffect } from 'react';
 import styled from 'styled-components';
 
-const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
-const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
-
 const HomePage = () => {
-  useEffect(() => {
-    const start = () => {
-      gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: [
-          'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
-        ],
-        scope: SCOPES,
-      });
-    };
-    gapi.load('client:auth2', start);
-  }, []);
-
-  console.log('Client ID:', CLIENT_ID);
-  console.log('API Key:', API_KEY);
+  console.log('Client ID:', process.env.REACT_APP_GOOGLE_CLIENT_ID);
+  console.log('API Key:', process.env.REACT_APP_GOOGLE_API_KEY);
 
   const handleSignIn = async () => {
-    const GoogleAuth = gapi.auth2.getAuthInstance();
+    const GoogleAuth = gapi.auth2?.getAuthInstance();
+    console.log('asdfawfes', GoogleAuth);
     if (!GoogleAuth.isSignedIn.get()) {
+      console.log('asdf');
       await GoogleAuth.signIn();
     }
     alert('Google Calendar 연동 성공!');

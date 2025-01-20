@@ -2,8 +2,8 @@ import { gapi } from 'gapi-script';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
-const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-const API_KEY = process.env.REACT_APP_API_KEY;
+const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
 const HomePage = () => {

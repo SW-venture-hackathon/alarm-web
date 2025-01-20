@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 export function register() {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

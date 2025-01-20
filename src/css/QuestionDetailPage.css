@@ -1,0 +1,122 @@
+/* 전체 배경 설정 */
+body {
+    background-color: #dde6d5;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면 전체 높이 */
+  }
+  
+  /* 메인 컨테이너 */
+  .question-container {
+    width: 100%; /* 화면 전체 너비 */
+    height: 100%; /* 화면 전체 높이 */
+    max-width: 580px; /* 최대 너비 */
+    max-height: 1120px; /* 최대 높이 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #dde6d5; /* 연두색 배경 */
+    padding: 0; /* 여백 제거 */
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  /* 질문 텍스트 영역 */
+  .question-text {
+    flex: 1; /* 화면 비율 조정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    text-align: center;
+    padding: 20px;
+    background-color: #dde6d5; /* 연두색 배경 */
+    margin: 0; /* 여백 제거 */
+  }
+  
+  /* 옵션 영역 */
+  .options-container {
+    flex: 3; /* 옵션 영역 확장 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* 흰 배경 */
+    padding: 20px;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 15px 15px 0 0;
+  }
+  
+  /* 개별 옵션 */
+  .option {
+    width: calc(100% - 20px); /* 옵션 전체 너비 */
+    max-width: 500px;
+    margin: 10px 0; /* 위아래 간격 */
+    padding: 15px 20px;
+    background-color: #f8d3c5; /* 핑크 배경 */
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .option:hover {
+    background-color: #f5b8a8; /* 호버 시 색상 */
+  }
+  
+  .option input[type="radio"] {
+    margin-right: 10px;
+    accent-color: #2c3e50;
+  }
+  
+  .option label {
+    font-size: 1rem;
+    color: #2c3e50;
+  }
+  
+  /* 다음 버튼 스타일 */
+  .next-button {
+    width: calc(100% - 40px); /* 버튼 양쪽 여백 */
+    max-width: 500px;
+    margin: 20px auto;
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .next-button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* 반응형 처리 */
+  @media (max-width: 600px) {
+    .question-container {
+      width: 100%; /* 화면 너비에 맞춤 */
+      height: 100%;
+    }
+  
+    .question-text {
+      font-size: 1rem; /* 텍스트 크기 축소 */
+    }
+  
+    .option {
+      padding: 10px 15px;
+    }
+  
+    .next-button {
+      padding: 12px;
+    }
+  }
+  

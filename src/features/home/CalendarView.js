@@ -116,21 +116,21 @@ const CalendarContainer = styled.div`
   width: 100%;
   max-width: 600px;
   margin: auto;
-  padding: 16px;
+  padding: 16px 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #f9f9f9;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 `;
 
 const MonthTitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
 `;
 
@@ -145,13 +145,14 @@ const ArrowButton = styled.button`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
+  gap: 4px;
 `;
 
 const DayName = styled.div`
   text-align: center;
   font-weight: bold;
-  padding: 8px 0;
+  font-size: 0.825rem;
+  padding: 4px 0;
   color: ${(props) =>
     props.isSaturday ? 'blue' : props.isSunday ? 'red' : 'black'};
 `;
@@ -159,8 +160,8 @@ const DayName = styled.div`
 const DayCell = styled.div`
   position: relative;
   border: 1px solid #eee;
-  padding: 8px;
-  min-height: 80px;
+  padding: 6px;
+  min-height: 56px;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -172,6 +173,7 @@ const DayNumber = styled.div`
   top: 8px;
   left: 8px;
   font-weight: bold;
+  font-size: 0.8rem;
 `;
 
 const EventBarContainer = styled.div`
@@ -185,7 +187,7 @@ const EventBarContainer = styled.div`
 const EventBar = styled.div`
   background-color: ${(props) => props.color || '#4285f4'};
   color: white;
-  font-size: 0.8rem;
+  font-size: 0.525rem;
   border-radius: 4px;
   padding: 4px;
   text-align: center;

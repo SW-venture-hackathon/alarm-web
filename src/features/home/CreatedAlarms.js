@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // eslint-disable-next-line react/prop-types
 const CreatedAlarms = ({ alarms }) => {
   return (
-    <AlarmContainer>
+    <>
       <Title>생성된 알람</Title>
       {alarms.map((alarm, index) => (
         <AlarmCard key={index}>
@@ -24,20 +24,13 @@ const CreatedAlarms = ({ alarms }) => {
           </ToggleSwitch>
         </AlarmCard>
       ))}
-    </AlarmContainer>
+    </>
   );
 };
 
 export default CreatedAlarms;
 
 // Styled components
-const AlarmContainer = styled.div`
-  margin-top: 16px;
-  padding: 16px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-`;
 
 const Title = styled.h2`
   font-size: 1.2rem;

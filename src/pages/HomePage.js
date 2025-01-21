@@ -4,27 +4,31 @@ import CalendarView from '../features/home/CalendarView';
 import CreatedAlarms from '../features/home/CreatedAlarms';
 import UpcomingEvents from '../features/home/UpcomingEvents';
 
+const EVENTS = [
+  { date: '2025-05-18', title: 'Team Meeting', color: '#ff6347' },
+  { date: '2025-05-18', title: 'Project Deadline', color: '#4285f4' },
+];
+
+const ALARMS = [
+  {
+    time: '09:00',
+    date: '2025-5-18',
+    day: '목',
+    title: '내 생일파티',
+    isActive: true,
+  },
+  {
+    time: '17:30',
+    date: '2025-5-18',
+    day: '금',
+    title: '저녁 약속',
+    isActive: false,
+  },
+];
+
 const HomePage = () => {
-  const [events, setEvents] = useState([
-    { date: '2025-05-18', title: 'Team Meeting', color: '#ff6347' },
-    { date: '2025-05-18', title: 'Project Deadline', color: '#4285f4' },
-  ]);
-  const [alarms, setAlarms] = useState([
-    {
-      time: '9:00',
-      date: '5월 18일',
-      day: '목',
-      title: '내 생일파티',
-      isActive: true,
-    },
-    {
-      time: '7:30',
-      date: '5월 18일',
-      day: '금',
-      title: '출근 준비',
-      isActive: false,
-    },
-  ]);
+  const [events, setEvents] = useState(EVENTS);
+  const [alarms, setAlarms] = useState(ALARMS);
 
   const handleEvent = () => {
     setEvents(1);
@@ -40,7 +44,7 @@ const HomePage = () => {
       <AlarmContainer>
         <CreatedAlarms alarms={alarms} />
       </AlarmContainer>
-      <button onClick={handleEvent}></button>
+      <button style={{ display: 'none' }} onClick={handleEvent}></button>
     </Container>
   );
 };

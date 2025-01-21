@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
@@ -13,8 +14,27 @@ const HeaderContainer = styled.header`
   font-weight: bold;
 `;
 
+const Button = styled.button`
+  all: unset; /* 기본 버튼 스타일 제거 */
+  background-color: #93a98b;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+`;
+
 const Header = () => {
-  return <HeaderContainer>서비스명</HeaderContainer>;
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate('/questions');
+  };
+
+  return (
+    <HeaderContainer>
+      <Button onClick={handleNavigate}>Timely</Button>
+    </HeaderContainer>
+  );
 };
 
 export default Header;

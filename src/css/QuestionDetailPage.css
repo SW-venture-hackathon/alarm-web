@@ -13,9 +13,6 @@
 .question-text {
   background-color: #dde6d5; /* 연두색 배경 */
   height: 25%; /* 화면의 25% */
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 1.5rem;
   color: #2c3e50;
   text-align: center;
@@ -25,7 +22,6 @@
 
 /* 옵션 영역 */
 .options-container {
-  height: 55%; /* 화면의 55% */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -39,7 +35,8 @@
 /* 개별 옵션 */
 .option {
   width: 90%;
-  padding: 15px;
+  margin-bottom: 12px;
+  padding: 12px;
   background-color: #f8d3c5; /* 핑크색 배경 */
   border-radius: 10px;
   font-size: 1.2rem;
@@ -47,6 +44,11 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* id가 1일 때 사용할 스타일 */
+.full-width {
+  width: 100%; /* 전체 너비로 확장 */
 }
 
 .option:hover {
@@ -77,8 +79,16 @@
   transition: background-color 0.3s ease;
 }
 
-.next-button:hover {
-  background-color: #ffb0a0; /* 호버 효과 */
+/* 버튼 비활성화 상태 */
+.next-button:disabled {
+  background-color: #e0e0e0; /* 회색 */
+  cursor: not-allowed;
+}
+
+/* 옵션 선택 시 활성화된 버튼 */
+.next-button.active {
+  background-color: #ff7043; /* 강조된 색상 */
+  color: white;
 }
 
 /* 슬라이더 컨테이너 */

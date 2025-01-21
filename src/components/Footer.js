@@ -6,12 +6,11 @@ const FooterContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: #d8d8d8;
-  padding: 10px 0;
   position: fixed;
   bottom: 0;
   width: 100%;
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-  height: 100px; /* 명시적으로 높이 설정 */
+  height: 60px; /* 명시적으로 높이 설정 */
 `;
 
 const FooterButton = styled(Link)`

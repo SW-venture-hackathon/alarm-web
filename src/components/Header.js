@@ -5,7 +5,7 @@ const HeaderContainer = styled.header`
   justify-content: space-around;
   align-items: center;
   background-color: #93a98b;
-  height: 100px;
+  height: 60px;
   color: white;
   padding: 16px;
   text-align: center;

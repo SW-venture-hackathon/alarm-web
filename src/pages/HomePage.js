@@ -5,6 +5,16 @@ import CreatedAlarms from '../features/home/CreatedAlarms';
 import UpcomingEvents from '../features/home/UpcomingEvents';
 
 const HomePage = () => {
+  if (Notification.permission === 'default') {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        console.log('알림 권한이 허용되었습니다.');
+      } else {
+        console.log('알림 권한이 거부되었습니다.');
+      }
+    });
+  }
+
   const [events, setEvents] = useState([
     { date: '2025-05-18', title: 'Team Meeting', color: '#ff6347' },
     { date: '2025-05-18', title: 'Project Deadline', color: '#4285f4' },

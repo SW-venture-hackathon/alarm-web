@@ -71,3 +71,27 @@ self.addEventListener('activate', (event) => {
     ),
   );
 });
+
+// 푸시 알림 수신
+self.addEventListener('push', (event) => {
+  const data = event.data ? event.data.json() : {};
+  const title = data.title || '알림 제목';
+  const options = {
+    body: data.body || '알림 본문',
+    icon: data.icon || '/icon.png',
+    badge: data.badge || '/badge.png',
+    data: data, // 추가 데이터 전달
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+// 알림 클릭 이벤트 처리
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const targetUrl =
+    event.notification.data && event.notification.data.url
+      ? event.notification.data.url
+      : '/';
+  event.waitUntil(clients.openWindow(targetUrl));
+});

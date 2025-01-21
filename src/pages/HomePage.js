@@ -47,7 +47,9 @@ const HomePage = () => {
       <UpcomingContainer>
         <UpcomingEvents events={events} />
       </UpcomingContainer>
-      <CreatedAlarms alarms={alarms} />
+      <AlarmContainer>
+        <CreatedAlarms alarms={alarms} />
+      </AlarmContainer>
       <button onClick={handleEvent}></button>
     </Container>
   );
@@ -59,10 +61,19 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
 `;
 
 const UpcomingContainer = styled.div`
+  width: 100%;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const AlarmContainer = styled.div`
+  width: 100%;
   margin-top: 16px;
   padding: 16px;
   border-radius: 8px;

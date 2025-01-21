@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import styled from 'styled-components';
 
-// eslint-disable-next-line react/prop-types
-const CreatedAlarms = ({ alarms }) => {
+const CreatedAlarms = ({ alarms, onToggle }) => {
   return (
     <AlarmContainer>
       <Title>생성된 알람</Title>
@@ -19,7 +18,11 @@ const CreatedAlarms = ({ alarms }) => {
             <AlarmTitle>{alarm.title}</AlarmTitle>
           </DetailsSection>
           <ToggleSwitch>
-            <input type="checkbox" defaultChecked={alarm.isActive} />
+            <input
+              type="checkbox"
+              checked={alarm.isActive}
+              onChange={() => onToggle(index)} // 알람 상태 토글
+            />
             <Slider />
           </ToggleSwitch>
         </AlarmCard>

@@ -2,31 +2,63 @@
 import styled from 'styled-components';
 
 const CreatedAlarms = ({ alarms, onToggle }) => {
+  // Helper function to format time
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(':').map(Number);
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+  };
+  console.log(alarms);
   return (
     <>
       <Title>생성된 알람</Title>
-      {alarms.map((alarm, index) => (
-        <AlarmCard key={index}>
-          <TimeSection>
-            <Time>{alarm.time}</Time>
-            <AmPm>{alarm.amPm}</AmPm>
-          </TimeSection>
-          <DetailsSection>
-            <DateInfo>
-              {alarm.date} ({alarm.day})
-            </DateInfo>
-            <AlarmTitle>{alarm.title}</AlarmTitle>
-          </DetailsSection>
-          <ToggleSwitch>
-            <input
-              type="checkbox"
-              checked={alarm.isActive}
-              onChange={() => onToggle(index)} // 알람 상태 토글
-            />
-            <Slider />
-          </ToggleSwitch>
-        </AlarmCard>
-      ))}
+      {alarms.map((alarm, index) => {
+        const midIndex = Math.ceil(alarm.alarms.length / 2); // 중간 인덱스 계산
+        const morningAlarms = alarm.alarms.slice(0, midIndex); // 앞 절반
+        const departureAlarms = alarm.alarms.slice(midIndex); // 뒤 절반
+
+        return (
+          <AlarmCard key={index}>
+            <DetailsSection>
+              <AlarmTitle>{alarm.title}</AlarmTitle>
+              <EventTime>일정 시간: {alarm.event_time}</EventTime>
+
+              <SectionTitle>기상 알람</SectionTitle>
+              <AlarmTimes>
+                {morningAlarms.map((time, idx) => (
+                  <AlarmTime key={idx}>
+                    {formatTime(time)}{' '}
+                    <ToggleSwitch>
+                      <input
+                        type="checkbox"
+                        checked={time.isActive || false}
+                        onChange={() => onToggle(index, idx)}
+                      />
+                      <Slider />
+                    </ToggleSwitch>
+                  </AlarmTime>
+                ))}
+              </AlarmTimes>
+
+              <SectionTitle>출발 알람</SectionTitle>
+              <AlarmTimes>
+                {departureAlarms.map((time, idx) => (
+                  <AlarmTime key={idx + midIndex}>
+                    {formatTime(time)}{' '}
+                    <ToggleSwitch>
+                      <input
+                        type="checkbox"
+                        checked={time.isActive || false}
+                        onChange={() => onToggle(index, idx + midIndex)}
+                      />
+                      <Slider />
+                    </ToggleSwitch>
+                  </AlarmTime>
+                ))}
+              </AlarmTimes>
+            </DetailsSection>
+          </AlarmCard>
+        );
+      })}
     </>
   );
 };
@@ -34,7 +66,6 @@ const CreatedAlarms = ({ alarms, onToggle }) => {
 export default CreatedAlarms;
 
 // Styled components
-
 const Title = styled.h2`
   font-size: 1.2rem;
   font-weight: bold;
@@ -44,8 +75,8 @@ const Title = styled.h2`
 
 const AlarmCard = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
   background-color: #e8f5e9;
   border-radius: 8px;
   padding: 16px;
@@ -53,39 +84,43 @@ const AlarmCard = styled.div`
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-const TimeSection = styled.div`
+const DetailsSection = styled.div`
   display: flex;
-  align-items: baseline;
-  gap: 4px;
+  flex-direction: column;
+  width: 100%;
 `;
 
-const Time = styled.div`
-  font-size: 2rem;
+const AlarmTitle = styled.div`
+  font-size: 1.1rem;
   font-weight: bold;
   color: #333;
 `;
 
-const AmPm = styled.div`
-  font-size: 1rem;
-  color: #666;
-`;
-
-const DetailsSection = styled.div`
-  flex: 1;
-  margin-left: 16px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const DateInfo = styled.div`
+const EventTime = styled.div`
   font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 4px;
+  color: #555;
+  margin-bottom: 8px;
 `;
 
-const AlarmTitle = styled.div`
+const SectionTitle = styled.h3`
   font-size: 1rem;
   font-weight: bold;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  color: #2c3e50;
+`;
+
+const AlarmTimes = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+const AlarmTime = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
   color: #333;
 `;
 
